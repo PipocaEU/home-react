@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind screens;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.curso-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.curso-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Melhora o desempenho da animação */
+.curso-card-container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Efeito de profundidade */
+.curso-card {
+  transform-style: preserve-3d;
+}
+
+.curso-card:hover {
+  transform: scale(1.05) translateZ(10px);
+  z-index: 10;
+}
