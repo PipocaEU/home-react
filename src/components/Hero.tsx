@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 interface HeroProps {
   imageSrc: string;
   imageAlt?: string;
