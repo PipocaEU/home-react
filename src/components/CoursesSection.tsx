@@ -14,7 +14,7 @@ import inteligenciaArtificialImg from "/src/assets/inteligencia-artificial.png";
 export const CoursesSection = () => {
   const courses = [
     { id: "btn-front-end", title: "Front-end", imageSrc: frontendImg },
-    { id: "btn-ux-e-design", title: "UX\n& Design", imageSrc: uxDesignImg },
+    { id: "btn-ux-e-design", title: "UX & Design", imageSrc: uxDesignImg },
     { id: "btn-programacao", title: "Programação", imageSrc: programacaoImg },
     {
       id: "btn-data-science",
