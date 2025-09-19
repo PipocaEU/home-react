@@ -9,26 +9,48 @@ interface CadastroSectionProps {
 export default function CadastroSection({
   className = "",
   images = {
-    left:
-      "/images/pexels-mart-production-7606061.jpg", // troque pelos seus paths
+    left: "/images/pexels-mart-production-7606061.jpg", // troque pelos seus paths
     center: "/images/senhor-estudando.jpg",
     right: "/images/pexels-diva-plavalaguna-6150385.jpg",
   },
 }: CadastroSectionProps) {
-  const [formData, setFormData] = useState({
+  // 1) defina um tipo para as opções (opcional, mas recomendado)
+  type Situacao =
+    | "estudante"
+    | "buscando"
+    | "empregado"
+    | "desempregado"
+    | "autonomo"
+    | "outro";
+
+  // 2) tipagem do estado do formulário
+  type FormData = {
+    nome: string;
+    email: string;
+    situacao: Situacao | ""; // "" para estado inicial (nenhuma selecionada)
+    carreira: string;
+  };
+
+  // 3) estado inicial
+  const [formData, setFormData] = useState<FormData>({
     nome: "",
     email: "",
-    situacao: "",
+    situacao: "", 
     carreira: "",
   });
 
+  // 4) handleChange aceitando INPUT e SELECT (e até TEXTAREA se quiser)
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value as FormData[keyof FormData],
+    }));
   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Dados do formulário:", formData);
@@ -90,15 +112,9 @@ export default function CadastroSection({
 
             {/* Bullets */}
             <ul className="mt-6 space-y-4">
-              <Bullet>
-                Receba materiais de estudo exclusivos.
-              </Bullet>
-              <Bullet>
-                Seja o primeiro a saber sobre novas trilhas.
-              </Bullet>
-              <Bullet>
-                Participe de webinars e workshops gratuitos.
-              </Bullet>
+              <Bullet>Receba materiais de estudo exclusivos.</Bullet>
+              <Bullet>Seja o primeiro a saber sobre novas trilhas.</Bullet>
+              <Bullet>Participe de webinars e workshops gratuitos.</Bullet>
             </ul>
           </div>
 
@@ -117,9 +133,7 @@ export default function CadastroSection({
                 <FormField
                   id="nome"
                   label="Nome"
-                  icon={
-                    <UserIcon className="h-4 w-4 text-[#CED4DA]" />
-                  }
+                  icon={<UserIcon className="h-4 w-4 text-[#CED4DA]" />}
                 >
                   <input
                     type="text"
@@ -137,9 +151,7 @@ export default function CadastroSection({
                 <FormField
                   id="email"
                   label="E-mail"
-                  icon={
-                    <MailIcon className="h-4 w-4 text-[#CED4DA]" />
-                  }
+                  icon={<MailIcon className="h-4 w-4 text-[#CED4DA]" />}
                 >
                   <input
                     type="email"
@@ -157,29 +169,38 @@ export default function CadastroSection({
                 <FormField
                   id="situacao"
                   label="Situação Profissional"
-                  icon={
-                    <BriefcaseIcon className="h-4 w-4 text-[#CED4DA]" />
-                  }
+                  icon={<BriefcaseIcon className="h-4 w-4 text-[#CED4DA]" />}
                 >
-                  <input
-                    type="text"
+                  <select
                     id="situacao"
                     name="situacao"
                     value={formData.situacao}
                     onChange={handleChange}
-                    placeholder="Ex: Estudante, Buscando 1º emprego, etc."
-                    className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 placeholder-[#ADAEBC] focus:outline-none focus:ring-2 focus:ring-[#581B61]"
+                    className="
+      h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white
+      pl-10 pr-3 text-[16px] leading-6
+      text-[#000] placeholder-[#ADAEBC]
+      focus:outline-none focus:ring-2 focus:ring-[#581B61]
+    "
                     required
-                  />
+                  >
+                    <option value="" disabled>
+                      Selecione sua situação
+                    </option>
+                    <option value="estudante">Estudante</option>
+                    <option value="buscando">Buscando 1º emprego</option>
+                    <option value="empregado">Empregado</option>
+                    <option value="desempregado">Desempregado</option>
+                    <option value="autonomo">Autônomo / Freelancer</option>
+                    <option value="outro">Outro</option>
+                  </select>
                 </FormField>
 
                 {/* Carreira Desejada */}
                 <FormField
                   id="carreira"
                   label="Carreira Desejada"
-                  icon={
-                    <TargetIcon className="h-4 w-4 text-[#CED4DA]" />
-                  }
+                  icon={<TargetIcon className="h-4 w-4 text-[#CED4DA]" />}
                 >
                   <input
                     type="text"
@@ -296,7 +317,12 @@ function MailIcon(props: React.SVGProps<SVGSVGElement>) {
         stroke="currentColor"
         strokeWidth="2"
       />
-      <path d="M22 6l-10 7L2 6" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path
+        d="M22 6l-10 7L2 6"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
     </svg>
   );
 }
@@ -304,7 +330,12 @@ function MailIcon(props: React.SVGProps<SVGSVGElement>) {
 function BriefcaseIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" width="16" height="16" {...props}>
-      <path d="M4 7h16v12H4z" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path
+        d="M4 7h16v12H4z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
       <path d="M9 7V5h6v2" fill="none" stroke="currentColor" strokeWidth="2" />
       <path d="M4 12h16" fill="none" stroke="currentColor" strokeWidth="2" />
     </svg>
@@ -314,9 +345,27 @@ function BriefcaseIcon(props: React.SVGProps<SVGSVGElement>) {
 function TargetIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" width="16" height="16" {...props}>
-        <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" strokeWidth="2" />
-        <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" strokeWidth="2" />
-        <path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" strokeWidth="2" />
+      <circle
+        cx="12"
+        cy="12"
+        r="8"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <circle
+        cx="12"
+        cy="12"
+        r="3"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path
+        d="M12 2v3M12 19v3M2 12h3M19 12h3"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
     </svg>
   );
 }

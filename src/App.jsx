@@ -31,7 +31,7 @@ const team = [
   { nome: "Giovana", cargo: "User Experience Design(UX)", foto: caio, linkedin: "https://linkedin.com/in/mariana" },
   { nome: "Simone", cargo: "Quality Assurance (QA)", foto: caio, linkedin: "https://linkedin.com/in/ana" },
   { nome: "Carlos ", cargo: "Quality Assurance (QA)", foto: carlos, linkedin: "https://linkedin.com/in/csantos" },
-  
+  { nome: "Carlos ", cargo: "Quality Assurance (QA)", foto: carlos, linkedin: "https://linkedin.com/in/csantos" },
   // ...
 ];
 

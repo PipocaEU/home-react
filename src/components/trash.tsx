@@ -9,12 +9,19 @@ export const Hero = ({ imageSrc, imageAlt = "Imagem hero" }: HeroProps) => {
   return (
     <section
       id="hero"
-      className="h-screen pt-[64px] bg-cover bg-center md:bg-top text-white flex items-end md:items-center justify-center md:justify-start p-4 md:pl-[50px] lg:pl-[100px]"
+      aria-label={imageAlt}
+      className="
+        relative mx-auto w-full max-w-[1440px]
+        bg-cover bg-center md:bg-top text-white
+        min-h-[1024px]
+      "
       style={{ backgroundImage: `url(${imageSrc})` }}
     >
+      {/* Overlay de segurança para contraste (opcional) */}
       <div className="absolute inset-0" aria-hidden />
-      {/* Card (roxo) */}
-       <div
+
+      {/* Card (Frame 12) */}
+      <div
         id="hero-content"
         className="
           bg-[#3F1F56]/80 rounded-2xl
@@ -25,7 +32,7 @@ export const Hero = ({ imageSrc, imageAlt = "Imagem hero" }: HeroProps) => {
           md:absolute md:left-20 md:top-[222px]
           md:w-[648px]
         "
-        style={{ height: "auto" }} 
+        style={{ height: "auto" }} // se quiser travar mesmo: use h-[569px]
       >
         <h1
           id="hero-title"
@@ -40,7 +47,7 @@ export const Hero = ({ imageSrc, imageAlt = "Imagem hero" }: HeroProps) => {
           Migre para a tecnologia com suporte real e personalizado.
         </h1>
 
-        <h3
+        <h2
           id="hero-subtitle"
           className="
             font-inter font-normal
@@ -52,18 +59,36 @@ export const Hero = ({ imageSrc, imageAlt = "Imagem hero" }: HeroProps) => {
         >
           Se reinvente com aprendizado ágil e mentorias focadas na sua entrada
           no mercado de TI.
-        </h3>
+        </h2>
 
-        <div className="flex flex-col gap-4 pt-6 md:flex-row" id="hero-buttons">
+        <div
+          id="hero-buttons"
+          className="flex flex-col sm:flex-row flex-wrap items-center gap-6"
+        >
           <button
-            className="bg-[#FFD700] text-black rounded-lg py-2 px-6 font-inter font-semibold hover:bg-[#FFC000] transition-colors"
             id="btn-cadastro"
+            className="
+              w-[196px] h-[51px]
+              bg-[#FBBB18] text-black
+              rounded-lg
+              font-inter font-medium text-[16px] leading-[19px]
+              hover:brightness-95 transition
+            "
           >
             Cadastre-se grátis!
           </button>
+
           <button
-            className="bg-transparent rounded-lg border-[#FFD700] text-[#FFD700] border-2 py-2 px-6 font-inter font-semibold hover:bg-[#3F1F56] transition-colors"
             id="btn-saiba-mais"
+            className="
+              w-[131px] h-[51px]
+              rounded-lg
+              border-2 border-[#FBBB18]
+              text-[#FBBB18]
+              bg-transparent
+              font-inter font-medium text-[16px] leading-[19px]
+              hover:bg-white/5 transition
+            "
           >
             Saiba mais
           </button>
