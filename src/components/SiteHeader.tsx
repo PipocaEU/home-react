@@ -1,46 +1,45 @@
+// SiteHeader.tsx
 import React, { useEffect, useRef, useState } from "react";
 
-// === Tipos ==============================================================
-interface NavItem {
-  label: string;
-  href: string;
-}
-
-interface BrandProps {
-  brandName?: string;
-  logoSrc?: string;
-}
-
-interface DesktopNavProps {
-  items: NavItem[];
-}
-
-interface MobileMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
-  items: NavItem[];
-}
-
+/* ========================= Tipos ========================= */
+interface NavItem { label: string; href: string; }
+interface BrandProps { brandName?: string; logoSrc?: string; }
+interface DesktopNavProps { items: NavItem[]; }
+interface MobileMenuProps { isOpen: boolean; onClose: () => void; items: NavItem[]; }
 interface SiteHeaderProps {
   brandName?: string;
   logoSrc?: string;
   navItems?: NavItem[];
   className?: string;
+  ctaText?: string;
 }
 
-// === Constantes =========================================================
+/* ====================== Constantes ======================= */
+// Ordem e rótulos conforme o layout (Cursos, Trilhas, Mentoria, Equipe)
 const DEFAULT_NAV: NavItem[] = [
-  { label: "Home", href: "#home" },
-  { label: "Sobre", href: "#sobre" },
   { label: "Cursos", href: "#cursos" },
+  { label: "Trilhas", href: "#trilhas" },
+  { label: "Mentoria", href: "#mentoria" },
+  { label: "Equipe", href: "#equipe" },
 ];
 
-// === Utilitários ========================================================
-function classNames(...xs: (string | boolean | undefined)[]): string {
+/* ===================== Utilitários ======================= */
+function classNames(...xs: (string | boolean | undefined)[]) {
   return xs.filter(Boolean).join(" ");
 }
 
-// === Componentes ========================================================
+// Scroll suave até o alvo (fallback p/ âncora padrão)
+function smoothScrollTo(hash: string) {
+  const id = hash.replace("#", "");
+  const el = typeof document !== "undefined" ? document.getElementById(id) : null;
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    return true;
+  }
+  return false;
+}
+
+/* ====================== Componentes ====================== */
 function Brand({ brandName = "Pipoca Academy", logoSrc }: BrandProps) {
   return (
     <a href="#home" className="flex items-center gap-2 shrink-0" aria-label={brandName}>
@@ -58,19 +57,42 @@ function Brand({ brandName = "Pipoca Academy", logoSrc }: BrandProps) {
 
 function DesktopNav({ items }: DesktopNavProps) {
   return (
-    <div className="hidden items-center gap-8 md:flex">
-      <nav aria-label="Principal" className="contents">
+    <nav aria-label="Principal" className="hidden md:flex h-14 items-center">
+      <ul className="flex items-center">
         {items.map((it) => (
-          <a
-            key={it.href}
-            href={it.href}
-            className="text-sm text-slate-700 hover:text-slate-900 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-700 focus-visible:ring-offset-2"
-          >
-            {it.label}
-          </a>
+          <li key={it.href} className="h-14">
+            <a
+              href={it.href}
+              className="flex h-14 items-center px-6 text-[16px] leading-6 font-normal text-black hover:text-[#581B61] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61] rounded-md"
+            >
+              {it.label}
+            </a>
+          </li>
         ))}
-      </nav>
-    </div>
+      </ul>
+    </nav>
+  );
+}
+
+function CTAButton({
+  text = "Cadastre-se grátis!",
+}: {
+  text?: string;
+}) {
+  const onClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
+    // tenta scroll suave; se achar o alvo, previne o default
+    if (smoothScrollTo("#cadastro")) e.preventDefault();
+  };
+
+  return (
+    <a
+      href="#cadastro"
+      onClick={onClick}
+      className="hidden md:inline-flex h-11 items-center justify-center rounded-lg bg-[#FBBB18] px-6 text-[16px] font-semibold text-black hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61]"
+      title="Ir para cadastro"
+    >
+      {text}
+    </a>
   );
 }
 
@@ -94,9 +116,7 @@ function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-    }
+    function onKey(e: KeyboardEvent) { if (e.key === "Escape") onClose(); }
     if (isOpen) document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [isOpen, onClose]);
@@ -106,9 +126,7 @@ function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
     if (isOpen) {
       const prev = style.overflow;
       style.overflow = "hidden";
-      return () => {
-        style.overflow = prev;
-      };
+      return () => { style.overflow = prev; };
     }
   }, [isOpen]);
 
@@ -116,12 +134,7 @@ function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
 
   return (
     <div className="md:hidden" role="dialog" aria-modal>
-      <div
-        className="fixed inset-0 z-40 bg-black/30"
-        onClick={onClose}
-        aria-hidden
-      />
-
+      <div className="fixed inset-0 z-40 bg-black/30" onClick={onClose} aria-hidden />
       <div
         ref={panelRef}
         className="fixed inset-x-3 top-3 z-50 rounded-2xl border border-slate-200 bg-white p-4 shadow-xl"
@@ -132,49 +145,65 @@ function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
               key={it.href}
               href={it.href}
               onClick={onClose}
-              className="rounded-lg px-3 py-2 text-base text-slate-800 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-700"
+              className="rounded-lg px-3 py-3 text-base text-slate-900 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61]"
             >
               {it.label}
             </a>
           ))}
+
+          {/* CTA visível no mobile */}
+          <a
+            href="#cadastro"
+            onClick={(e) => {
+              if (smoothScrollTo("#cadastro")) e.preventDefault();
+              onClose();
+            }}
+            className="mt-2 inline-flex h-11 items-center justify-center rounded-lg bg-[#FBBB18] px-4 font-semibold text-black"
+          >
+            Cadastre-se grátis!
+          </a>
         </nav>
       </div>
     </div>
   );
 }
 
-// === Componente principal ================================================
+/* ================= Componente principal ================= */
 export default function SiteHeader({
   brandName = "Pipoca Academy",
   logoSrc,
   navItems = DEFAULT_NAV,
   className,
+  ctaText = "Cadastre-se grátis!",
 }: SiteHeaderProps) {
   const [open, setOpen] = useState(false);
 
   return (
     <header
-      className={
-        classNames(
-          "sticky top-0 z-30 w-full border-b border-slate-200 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60",
-          className
-        )
-      }
+      className={classNames(
+        // sticky + fundo 95% branco, altura 72px, padding 8px 80px no desktop
+        "sticky top-0 z-50 w-full bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80",
+        "border-b border-slate-200",
+        className
+      )}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
+      <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-4 md:px-20">
         <Brand brandName={brandName} logoSrc={logoSrc} />
 
         <DesktopNav items={navItems} />
 
-        <button
-          type="button"
-          className="-mr-2 inline-flex items-center rounded-lg p-2 text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-700 md:hidden"
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <IconClose /> : <IconMenu />}
-        </button>
+        <div className="flex items-center gap-3">
+          <CTAButton text={ctaText} />
+          <button
+            type="button"
+            className="-mr-2 inline-flex items-center rounded-lg p-2 text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61] md:hidden"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <IconClose /> : <IconMenu />}
+          </button>
+        </div>
       </div>
 
       <MobileMenu isOpen={open} onClose={() => setOpen(false)} items={navItems} />
