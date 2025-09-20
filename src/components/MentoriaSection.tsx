@@ -39,24 +39,16 @@ export default function MentoriaSection({
               necessária para dar o próximo passo na sua carreira.
             </p>
 
-            <button className="w-full md:w-auto bg-[#FBBB18] text-[#2A1140] font-bold text-lg py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2">
-              {/* <svg
-                width="16"
-                height="18"
-                viewBox="0 0 16 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-3"
-              >
-                <path
-                  d="M8 1.5V9M8 9L11.5 5.5M8 9L4.5 5.5M1 5.5V13.5C1 14.6046 1.89543 15.5 3 15.5H13C14.1046 15.5 15 14.6046 15 13.5V5.5C15 4.39543 14.1046 3.5 13 3.5H3C1.89543 3.5 1 4.39543 1 5.5Z"
-                  stroke="#2A1140"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg> */}
-              <img src={icon} />
+            <button
+              className="w-full md:w-auto bg-[#FBBB18] text-[#2A1140] font-bold text-lg py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+              onClick={() => {
+                const section = document.getElementById("cadastro");
+                if (section) {
+                  section.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
+              <img src={icon} alt="Ícone de cursos" />
               Tenho interesse em uma mentoria
             </button>
           </div>
