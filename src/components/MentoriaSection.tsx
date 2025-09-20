@@ -60,7 +60,37 @@ export default function MentoriaSection({
           {/* Coluna direita - Cards de benefícios */}
           <div className="lg:w-3/5">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {/* Card 1 - Plano de Carreira */}
+            
+             {/* Card 1 - Suporte Profissionais Consagrados */}
+              <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
+                <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                  {/* <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 10L21 3M21 3H15M21 3V9M10 21H7C5.34315 21 4 19.6569 4 18V7C4 5.34315 5.34315 4 7 4H10M14 21H17C18.6569 21 20 19.6569 20 18V14"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg> */}
+                  <img src={codeReviewIcon} alt="code review icon" />
+                </div>
+                <h3 className="text-xl font-medium text-[#2A1140] mb-4">
+                  Suporte de profissionais consagrados
+                </h3>
+                <p className="text-[#6C757D]">
+                  Receba feedbacks detalhados para elevar a
+                  qualidade do suas entregas.
+                </p>
+              </div>
+
+              {/* Card 2 - Plano de Carreira */}
               <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
                 <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">
                   {/* <svg
@@ -89,35 +119,7 @@ export default function MentoriaSection({
                 </p>
               </div>
 
-              {/* Card 2 - Code Reviews */}
-              <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
-                <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">
-                  {/* <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14 10L21 3M21 3H15M21 3V9M10 21H7C5.34315 21 4 19.6569 4 18V7C4 5.34315 5.34315 4 7 4H10M14 21H17C18.6569 21 20 19.6569 20 18V14"
-                      stroke="white"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg> */}
-                  <img src={codeReviewIcon} alt="code review icon" />
-                </div>
-                <h3 className="text-xl font-medium text-[#2A1140] mb-4">
-                  Code Reviews
-                </h3>
-                <p className="text-[#6C757D]">
-                  Receba feedbacks detalhados sobre seus projetos para elevar a
-                  qualidade do seu código.
-                </p>
-              </div>
-
+             
               {/* Card 3 - Preparo para Entrevistas */}
               <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
                 <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">

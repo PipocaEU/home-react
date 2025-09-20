@@ -1,18 +1,31 @@
-// Use importações completas com URLs
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-// Resto do código permanece igual...
-const SUPABASE_URL = Deno.env.get("SB_URL")!;
-const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SERVICE_ROLE_KEY")!;
-const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY")!;
+const SUPABASE_URL = Deno.env.get("SB_URL");
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SERVICE_ROLE_KEY");
+const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
 const FROM_NAME = Deno.env.get("FROM_NAME") ?? "Pipoca Agil";
 const FROM_EMAIL = Deno.env.get("FROM_EMAIL") ?? "pipocaagileu@gmail.com";
 
-// Supabase client com service role (ignora RLS)
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+console.log("Configuração carregada:", {
+  SUPABASE_URL: SUPABASE_URL ? "✅" : "❌",
+  SUPABASE_SERVICE_ROLE_KEY: SUPABASE_SERVICE_ROLE_KEY ? "✅" : "❌",
+  BREVO_API_KEY: BREVO_API_KEY ? "✅" : "❌",
+  FROM_NAME,
+  FROM_EMAIL
+});
 
-// util: CORS
+// Verifique se todas as variáveis necessárias estão presentes
+if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !BREVO_API_KEY) {
+  console.error("Variáveis de ambiente faltando:", {
+    SUPABASE_URL: !SUPABASE_URL,
+    SUPABASE_SERVICE_ROLE_KEY: !SUPABASE_SERVICE_ROLE_KEY,
+    BREVO_API_KEY: !BREVO_API_KEY
+  });
+}
+
+const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_ROLE_KEY!);
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -20,12 +33,13 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
+  console.log("Nova requisição recebida:", req.method, req.url);
+  
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
   
   try {
-    // Resto do seu código...
     if (req.method !== "POST") {
       return new Response(JSON.stringify({ error: "Method not allowed" }), {
         status: 405,
@@ -33,8 +47,10 @@ serve(async (req) => {
       });
     }
 
-    const body = await req.json().catch(() => ({}));
-    const { nome, email, situacao, carreira } = body ?? {};
+    const body = await req.json();
+    console.log("Dados recebidos:", body);
+    
+    const { nome, email, situacao, carreira } = body;
 
     // validação básica
     const emailOk = typeof email === "string" && /^\S+@\S+\.\S+$/.test(email);
@@ -43,6 +59,7 @@ serve(async (req) => {
     const carOk = typeof carreira === "string" && carreira.length > 0;
 
     if (!emailOk || !nomeOk || !sitOk || !carOk) {
+      console.error("Dados inválidos:", { nome, email, situacao, carreira });
       return new Response(JSON.stringify({ error: "Dados inválidos" }), {
         status: 400,
         headers: { "Content-Type": "application/json", ...corsHeaders },
@@ -50,32 +67,36 @@ serve(async (req) => {
     }
 
     // grava no banco
-    const { error: dbError } = await supabase.from("leads").insert({
+    console.log("Inserindo no banco...");
+    const { data, error: dbError } = await supabase.from("leads").insert({
       nome,
       email,
       situacao,
       carreira,
-    });
+    }).select();
+
     if (dbError) {
-      // se houver unique violation (e-mail já existe), ignore para UX suave
+      console.error("Erro no banco:", dbError);
       const conflict =
         (dbError as any)?.code === "23505" ||
         String(dbError.message).includes("duplicate");
+      
       if (!conflict) {
-        console.error("DB error:", dbError);
         return new Response(JSON.stringify({ error: "Falha ao salvar" }), {
           status: 500,
           headers: { "Content-Type": "application/json", ...corsHeaders },
         });
       }
+      console.log("E-mail duplicado, continuando...");
     }
 
-    // envia e-mail via Brevo API v3
+    // envia e-mail via Brevo
+    console.log("Enviando e-mail via Brevo...");
     const mailRes = await fetch("https://api.brevo.com/v3/smtp/email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "api-key": BREVO_API_KEY,
+        "api-key": BREVO_API_KEY!,
       },
       body: JSON.stringify({
         sender: { name: FROM_NAME, email: FROM_EMAIL },
@@ -94,8 +115,9 @@ serve(async (req) => {
 
     if (!mailRes.ok) {
       const text = await mailRes.text();
-      console.error("Brevo error:", text);
-      // segue 200 para não travar UX — mas você pode retornar 502 se preferir
+      console.error("Erro no Brevo:", text);
+    } else {
+      console.log("E-mail enviado com sucesso!");
     }
 
     return new Response(JSON.stringify({ ok: true }), {
@@ -103,7 +125,7 @@ serve(async (req) => {
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
   } catch (e) {
-    console.error("Function error:", e);
+    console.error("Erro na função:", e);
     return new Response(JSON.stringify({ error: "Falha interna" }), {
       status: 500,
       headers: { "Content-Type": "application/json", ...corsHeaders },

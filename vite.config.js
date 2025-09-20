@@ -13,4 +13,13 @@ export default defineConfig({
       '@assets': path.resolve(path.dirname(new URL(import.meta.url).pathname), './src/assets')
     }
   },
+   server: {
+    proxy: {
+      '/functions': {
+        target: 'https://bawzlwhqnlhaxctghqlz.supabase.co',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/functions/, '/functions/v1')
+      }
+    }
+  }
 })
