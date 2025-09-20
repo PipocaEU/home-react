@@ -14,40 +14,49 @@ import EquipeSection from "./components/EquipeSection";
 import SiteFooter from "./components/SiteFooter";
 import ary from "./assets/team/ary_profile.jpg";
 import fernando from "./assets/team/fernando_profile.jpg";
-import marcus from "./assets/team/marcus_profile.jpg";
-import carol from "./assets/team/carol_profile.jpg";
+import marcus from "./assets/team/marcus_profile.jpeg";
+import carol from "./assets/team/carol_profile.jpeg";
 import carlos from "./assets/team/carlos_profile.jpg";
 import caio from "./assets/team/caio_profile.jpg";
 import aysla from "./assets/team/aysla_profile.jpeg";
+import leandro from "./assets/team/leandro_profile.jpeg";
+import mozart from "./assets/team/mozart_profile.jpeg";
+import simone from "./assets/team/simone_profile.png";
 
 const team = [
   {
     nome: "Caroline Videira",
     cargo: "Scrum Master",
     foto: carol,
-    linkedin: "https://linkedin.com/in/ana",
+    linkedin: "https://www.linkedin.com/in/carolinevideira",
   },
   {
     nome: "Fernando Freitas",
     cargo: "Scrum Master",
     foto: fernando,
-    linkedin: "https://linkedin.com/in/ana",
+    linkedin: "https://www.linkedin.com/in/fernando-freitas02",
   },
   {
-    nome: "Marcus",
+    nome: "Marcus Siqueira",
     cargo: "Product Owner",
     foto: marcus,
-    linkedin: "https://linkedin.com/in/ana",
+    linkedin: "https://www.linkedin.com/in/marcus-siqueira-b8a28727",
   },
   {
-    nome: "Caio",
+    nome: "Caio Servulo",
     cargo: "Product Owner",
     foto: caio,
-    linkedin: "https://linkedin.com/in/csantos",
+    linkedin: "https://www.linkedin.com/in/caioservulo",
   },
   {
-    nome: "Mozart",
-    cargo: "User Experience Design(UX)",
+    nome: "Mozart Souza Junior",
+    cargo: "UX/UI Designer",
+    foto: mozart,
+    linkedin: "https://www.linkedin.com/in/mozartuxdesigner",
+  },
+  {
+    nome: "Giovana",
+    cargo: "UX/UI Designer",
     foto: caio,
     linkedin: "https://linkedin.com/in/mariana",
   },
@@ -64,25 +73,20 @@ const team = [
     linkedin: "https://www.linkedin.com/in/aysla-loureiro-664004322",
   },
   {
-    nome: "Leandro",
+    nome: "Leandro Mendes Peixoto",
     cargo: "Quality Assurance (QA)",
-    foto: caio,
+    foto: leandro,
     linkedin: "https://www.linkedin.com/in/leandromendespeixoto",
   },
+
   {
-    nome: "Giovana",
-    cargo: "User Experience Design(UX)",
-    foto: caio,
-    linkedin: "https://linkedin.com/in/mariana",
-  },
-  {
-    nome: "Simone",
+    nome: "Simone Gabionetta",
     cargo: "Quality Assurance (QA)",
-    foto: caio,
+    foto: simone,
     linkedin: "https://www.linkedin.com/in/smgabionetta",
   },
   {
-    nome: "Carlos ",
+    nome: "Carlos Roberto Alcaires",
     cargo: "Quality Assurance (QA)",
     foto: carlos,
     linkedin: "https://www.linkedin.com/in/carlosrobertoaj",
