@@ -179,7 +179,7 @@ function SocialIcon({
 function Brand({ brandName = "Pipoca Academy", logoSrc }: BrandProps) {
   return (
     <a
-      href="#home"
+      href="#hero"
       className="flex items-center gap-2 shrink-0"
       aria-label={brandName}
     >
