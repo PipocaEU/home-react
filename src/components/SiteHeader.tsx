@@ -61,15 +61,12 @@ function Brand({ brandName = "Pipoca Academy", logoSrc }: BrandProps) {
       aria-label={brandName}
     >
       {logoSrc ? (
-        <img src={logoSrc} alt="Logo" className="rounded h-7 w-7" />
+        <img src={logoSrc} alt="Logo" />
       ) : (
         <span className="grid text-sm font-semibold text-white bg-purple-700 rounded h-7 w-7 place-items-center">
           PA
         </span>
       )}
-      <span className="font-serif text-lg tracking-wide text-purple-900 sm:text-xl">
-        {brandName}
-      </span>
     </a>
   );
 }
