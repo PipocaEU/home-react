@@ -27,43 +27,6 @@ import giovanna from "./assets/team/giovanna_profile.jpeg";
 
 const team = [
   {
-    nome: "Caroline Videira",
-    cargo: "Scrum Master",
-    foto: carol,
-    linkedin: "https://www.linkedin.com/in/carolinevideira",
-  },
-  {
-    nome: "Fernando Freitas",
-    cargo: "Scrum Master",
-    foto: fernando,
-    linkedin: "https://www.linkedin.com/in/fernando-freitas02",
-  },
-  {
-    nome: "Marcus Siqueira",
-    cargo: "Product Owner",
-    foto: marcus,
-    linkedin: "https://www.linkedin.com/in/marcus-siqueira-b8a28727",
-  },
-  {
-    nome: "Caio Servulo",
-    cargo: "Product Owner",
-    foto: caio,
-    linkedin: "https://www.linkedin.com/in/caioservulo",
-  },
-  {
-    nome: "Mozart Souza Junior",
-    cargo: "UX/UI Designer",
-    foto: mozart,
-    linkedin: "https://www.linkedin.com/in/mozartuxdesigner",
-  },
-  {
-    nome: "Giovanna Meireles",
-    cargo: "UX/UI Designer",
-    foto: giovanna,
-    linkedin:
-      "https://www.linkedin.com/in/giovanna-meireles182/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
-  },
-  {
     nome: "Ary Hauffe Neto",
     cargo: "FullStack Developer",
     foto: ary,
@@ -76,17 +39,16 @@ const team = [
     linkedin: "https://www.linkedin.com/in/aysla-loureiro-664004322",
   },
   {
-    nome: "Leandro Mendes Peixoto",
-    cargo: "Quality Assurance (QA)",
-    foto: leandro,
-    linkedin: "https://www.linkedin.com/in/leandromendespeixoto",
+    nome: "Caio Servulo",
+    cargo: "Product Owner",
+    foto: caio,
+    linkedin: "https://www.linkedin.com/in/caioservulo",
   },
-
   {
-    nome: "Simone Gabionetta",
-    cargo: "Quality Assurance (QA)",
-    foto: simone,
-    linkedin: "https://www.linkedin.com/in/smgabionetta",
+    nome: "Caroline Videira",
+    cargo: "Scrum Master",
+    foto: carol,
+    linkedin: "https://www.linkedin.com/in/carolinevideira",
   },
   {
     nome: "Carlos Roberto Alcaires",
@@ -94,6 +56,45 @@ const team = [
     foto: carlos,
     linkedin: "https://www.linkedin.com/in/carlosrobertoaj",
   },
+  {
+    nome: "Fernando Freitas",
+    cargo: "Scrum Master",
+    foto: fernando,
+    linkedin: "https://www.linkedin.com/in/fernando-freitas02",
+  },
+  {
+    nome: "Giovanna Meireles",
+    cargo: "UX/UI Designer",
+    foto: giovanna,
+    linkedin:
+      "https://www.linkedin.com/in/giovanna-meireles182/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
+  },
+  {
+    nome: "Leandro Mendes Peixoto",
+    cargo: "Quality Assurance (QA)",
+    foto: leandro,
+    linkedin: "https://www.linkedin.com/in/leandromendespeixoto",
+  },
+  {
+    nome: "Marcus Siqueira",
+    cargo: "Product Owner",
+    foto: marcus,
+    linkedin: "https://www.linkedin.com/in/marcus-siqueira-b8a28727",
+  },
+
+  {
+    nome: "Mozart Souza Junior",
+    cargo: "UX/UI Designer",
+    foto: mozart,
+    linkedin: "https://www.linkedin.com/in/mozartuxdesigner",
+  },
+  {
+    nome: "Simone Gabionetta",
+    cargo: "Quality Assurance (QA)",
+    foto: simone,
+    linkedin: "https://www.linkedin.com/in/smgabionetta",
+  },
+
   // ...
 ];
 
