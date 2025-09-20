@@ -2,10 +2,22 @@
 import React, { useEffect, useRef, useState } from "react";
 
 /* ========================= Tipos ========================= */
-interface NavItem { label: string; href: string; }
-interface BrandProps { brandName?: string; logoSrc?: string; }
-interface DesktopNavProps { items: NavItem[]; }
-interface MobileMenuProps { isOpen: boolean; onClose: () => void; items: NavItem[]; }
+interface NavItem {
+  label: string;
+  href: string;
+}
+interface BrandProps {
+  brandName?: string;
+  logoSrc?: string;
+}
+interface DesktopNavProps {
+  items: NavItem[];
+}
+interface MobileMenuProps {
+  isOpen: boolean;
+  onClose: () => void;
+  items: NavItem[];
+}
 interface SiteHeaderProps {
   brandName?: string;
   logoSrc?: string;
@@ -31,7 +43,8 @@ function classNames(...xs: (string | boolean | undefined)[]) {
 // Scroll suave até o alvo (fallback p/ âncora padrão)
 function smoothScrollTo(hash: string) {
   const id = hash.replace("#", "");
-  const el = typeof document !== "undefined" ? document.getElementById(id) : null;
+  const el =
+    typeof document !== "undefined" ? document.getElementById(id) : null;
   if (el) {
     el.scrollIntoView({ behavior: "smooth", block: "start" });
     return true;
@@ -42,22 +55,28 @@ function smoothScrollTo(hash: string) {
 /* ====================== Componentes ====================== */
 function Brand({ brandName = "Pipoca Academy", logoSrc }: BrandProps) {
   return (
-    <a href="#home" className="flex items-center gap-2 shrink-0" aria-label={brandName}>
+    <a
+      href="#hero"
+      className="flex items-center gap-2 shrink-0"
+      aria-label={brandName}
+    >
       {logoSrc ? (
-        <img src={logoSrc} alt="Logo" className="h-7 w-7 rounded" />
+        <img src={logoSrc} alt="Logo" className="rounded h-7 w-7" />
       ) : (
-        <span className="grid h-7 w-7 place-items-center rounded bg-purple-700 text-white text-sm font-semibold">
+        <span className="grid text-sm font-semibold text-white bg-purple-700 rounded h-7 w-7 place-items-center">
           PA
         </span>
       )}
-      <span className="font-serif text-lg tracking-wide text-purple-900 sm:text-xl">{brandName}</span>
+      <span className="font-serif text-lg tracking-wide text-purple-900 sm:text-xl">
+        {brandName}
+      </span>
     </a>
   );
 }
 
 function DesktopNav({ items }: DesktopNavProps) {
   return (
-    <nav aria-label="Principal" className="hidden md:flex h-14 items-center">
+    <nav aria-label="Principal" className="items-center hidden md:flex h-14">
       <ul className="flex items-center">
         {items.map((it) => (
           <li key={it.href} className="h-14">
@@ -74,11 +93,7 @@ function DesktopNav({ items }: DesktopNavProps) {
   );
 }
 
-function CTAButton({
-  text = "Cadastre-se grátis!",
-}: {
-  text?: string;
-}) {
+function CTAButton({ text = "Cadastre-se grátis!" }: { text?: string }) {
   const onClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     // tenta scroll suave; se achar o alvo, previne o default
     if (smoothScrollTo("#cadastro")) e.preventDefault();
@@ -99,7 +114,12 @@ function CTAButton({
 function IconMenu(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden width={24} height={24} {...props}>
-      <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path
+        d="M4 6h16M4 12h16M4 18h16"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -107,7 +127,12 @@ function IconMenu(props: React.SVGProps<SVGSVGElement>) {
 function IconClose(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden width={24} height={24} {...props}>
-      <path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path
+        d="M6 6l12 12M18 6l-12 12"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -116,7 +141,9 @@ function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function onKey(e: KeyboardEvent) { if (e.key === "Escape") onClose(); }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
     if (isOpen) document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [isOpen, onClose]);
@@ -126,18 +153,24 @@ function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
     if (isOpen) {
       const prev = style.overflow;
       style.overflow = "hidden";
-      return () => { style.overflow = prev; };
+      return () => {
+        style.overflow = prev;
+      };
     }
   }, [isOpen]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="md:hidden" role="dialog" aria-modal>
-      <div className="fixed inset-0 z-40 bg-black/30" onClick={onClose} aria-hidden />
+    <div className="z-40 md:hidden" role="dialog" aria-modal>
+      <div
+        className="fixed inset-0 bg-black/40"
+        onClick={onClose}
+        aria-hidden
+      />
       <div
         ref={panelRef}
-        className="fixed inset-x-3 top-3 z-50 rounded-2xl border border-slate-200 bg-white p-4 shadow-xl"
+        className="fixed z-50 p-4 bg-white border shadow-xl inset-x-3 top-3 rounded-2xl border-slate-200"
       >
         <nav aria-label="Menu móvel" className="flex flex-col gap-2">
           {items.map((it) => (
@@ -206,7 +239,11 @@ export default function SiteHeader({
         </div>
       </div>
 
-      <MobileMenu isOpen={open} onClose={() => setOpen(false)} items={navItems} />
+      <MobileMenu
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        items={navItems}
+      />
     </header>
   );
 }
