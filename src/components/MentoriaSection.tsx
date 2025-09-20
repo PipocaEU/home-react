@@ -1,6 +1,10 @@
 // MentoriaSection.tsx
 import React from "react";
 import icon from "../assets/cursos-btn-icon.png";
+import carrerIcon from "../assets/carrericon.png";
+import codeReviewIcon from "../assets/codereviewicon.png";
+import interviewIcon from "../assets/interviewicon.png";
+import networkingIcon from "../assets/networkingicon.png";
 
 type MentoriaSectionProps = {
   /** imagem de background do topo */
@@ -59,7 +63,7 @@ export default function MentoriaSection({
               {/* Card 1 - Plano de Carreira */}
               <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
                 <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">
-                  <svg
+                  {/* <svg
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -73,7 +77,8 @@ export default function MentoriaSection({
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
-                  </svg>
+                  </svg> */}
+                  <img src={carrerIcon} alt="carrer icon" />
                 </div>
                 <h3 className="text-xl font-medium text-[#2A1140] mb-4">
                   Plano de Carreira
@@ -87,7 +92,7 @@ export default function MentoriaSection({
               {/* Card 2 - Code Reviews */}
               <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
                 <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">
-                  <svg
+                  {/* <svg
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -101,7 +106,8 @@ export default function MentoriaSection({
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
-                  </svg>
+                  </svg> */}
+                  <img src={codeReviewIcon} alt="code review icon" />
                 </div>
                 <h3 className="text-xl font-medium text-[#2A1140] mb-4">
                   Code Reviews
@@ -115,7 +121,7 @@ export default function MentoriaSection({
               {/* Card 3 - Preparo para Entrevistas */}
               <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
                 <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">
-                  <svg
+                  {/* <svg
                     width="21"
                     height="24"
                     viewBox="0 0 21 24"
@@ -129,7 +135,8 @@ export default function MentoriaSection({
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
-                  </svg>
+                  </svg> */}
+                  <img src={interviewIcon} alt="interview icon" />
                 </div>
                 <h3 className="text-xl font-medium text-[#2A1140] mb-4">
                   Preparo para
@@ -145,7 +152,7 @@ export default function MentoriaSection({
               {/* Card 4 - Networking */}
               <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
                 <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">
-                  <svg
+                  {/* <svg
                     width="30"
                     height="24"
                     viewBox="0 0 30 24"
@@ -159,7 +166,8 @@ export default function MentoriaSection({
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
-                  </svg>
+                  </svg> */}
+                  <img src={networkingIcon} alt="networking icon" />
                 </div>
                 <h3 className="text-xl font-medium text-[#2A1140] mb-4">
                   Networking
