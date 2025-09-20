@@ -157,7 +157,10 @@ function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
   }, [isOpen]);
 
   // Adicionar: Fechar menu ao clicar em qualquer link
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
     // Tenta scroll suave primeiro
     if (smoothScrollTo(href)) {
       e.preventDefault();
@@ -217,6 +220,25 @@ export default function SiteHeader({
   ctaText = "Cadastre-se grátis!",
 }: SiteHeaderProps) {
   const [open, setOpen] = useState(false);
+
+  // Adicionar: Fechar menu quando ocorrer scroll
+  useEffect(() => {
+    function handleScroll() {
+      if (open) {
+        setOpen(false);
+      }
+    }
+
+    // Adiciona o event listener quando o menu está aberto
+    if (open) {
+      window.addEventListener("scroll", handleScroll, { passive: true });
+    }
+
+    // Remove o event listener quando o componente é desmontado ou o menu fecha
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [open]); // Executa sempre que o estado 'open' mudar
 
   return (
     <header
