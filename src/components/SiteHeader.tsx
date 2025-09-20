@@ -18,261 +18,186 @@ interface MobileMenuProps {
   onClose: () => void;
   items: NavItem[];
 }
-interface SiteHeaderProps {
-  brandName?: string;
-  logoSrc?: string;
-  navItems?: NavItem[];
-  className?: string;
-  ctaText?: string;
-}
 
-/* ====================== Constantes ======================= */
-// Ordem e rótulos conforme o layout (Cursos, Trilhas, Mentoria, Equipe)
-const DEFAULT_NAV: NavItem[] = [
-  { label: "Cursos", href: "#cursos" },
-  { label: "Trilhas", href: "#trilhas" },
-  { label: "Mentoria", href: "#mentoria" },
-  { label: "Equipe", href: "#equipe" },
-];
-
-/* ===================== Utilitários ======================= */
-function classNames(...xs: (string | boolean | undefined)[]) {
-  return xs.filter(Boolean).join(" ");
-}
-
-// Scroll suave até o alvo (fallback p/ âncora padrão)
-function smoothScrollTo(hash: string) {
-  const id = hash.replace("#", "");
-  const el =
-    typeof document !== "undefined" ? document.getElementById(id) : null;
-  if (el) {
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
-    return true;
-  }
-  return false;
-}
-
-/* ====================== Componentes ====================== */
-function Brand({ brandName = "Pipoca Academy", logoSrc }: BrandProps) {
+function IconMenu(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <a
-      href="#hero"
-      className="flex items-center gap-2 shrink-0"
-      aria-label={brandName}
-    >
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+      <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+function IconClose(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+      <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/* ========================= Componentes ========================= */
+function Brand({ brandName = "Minha Marca", logoSrc }: BrandProps) {
+  return (
+    <a href="/" className="flex items-center gap-2">
       {logoSrc ? (
-        <img src={logoSrc} alt="Logo" />
+        <img src={logoSrc} alt="Logo" className="h-7 w-7 rounded" />
       ) : (
         <span className="grid text-sm font-semibold text-white bg-purple-700 rounded h-7 w-7 place-items-center">
           PA
         </span>
       )}
+      <span className="font-semibold">{brandName}</span>
     </a>
   );
 }
 
 function DesktopNav({ items }: DesktopNavProps) {
   return (
-    <nav aria-label="Principal" className="items-center hidden md:flex h-14">
-      <ul className="flex items-center">
-        {items.map((it) => (
-          <li key={it.href} className="h-14">
-            <a
-              href={it.href}
-              className="flex h-14 items-center px-6 text-[16px] leading-6 font-normal text-black hover:text-[#581B61] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61] rounded-md"
-            >
-              {it.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <nav aria-label="Principal" className="hidden md:flex items-center gap-6">
+      {items.map((item) => (
+        <a key={item.href} href={item.href} className="text-sm hover:text-purple-700 transition-colors">
+          {item.label}
+        </a>
+      ))}
     </nav>
   );
 }
 
-function CTAButton({ text = "Cadastre-se grátis!" }: { text?: string }) {
-  const onClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
-    // tenta scroll suave; se achar o alvo, previne o default
-    if (smoothScrollTo("#cadastro")) e.preventDefault();
-  };
-
-  return (
-    <a
-      href="#cadastro"
-      onClick={onClick}
-      className="hidden md:inline-flex h-11 items-center justify-center rounded-lg bg-[#FBBB18] px-6 text-[16px] font-semibold text-black hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61]"
-      title="Ir para cadastro"
-    >
-      {text}
-    </a>
-  );
-}
-
-function IconMenu(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden width={24} height={24} {...props}>
-      <path
-        d="M4 6h16M4 12h16M4 18h16"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function IconClose(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden width={24} height={24} {...props}>
-      <path
-        d="M6 6l12 12M18 6l-12 12"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
-  const panelRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
 
+  // Fecha com ESC
   useEffect(() => {
-    function onKey(e: KeyboardEvent) {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-    }
-    if (isOpen) document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, onClose]);
 
+  // Fecha ao rolar / gesto (sem travar o body!)
   useEffect(() => {
-    const { style } = document.body;
-    if (isOpen) {
-      const prev = style.overflow;
-      style.overflow = "hidden";
-      return () => {
-        style.overflow = prev;
-      };
-    }
-  }, [isOpen]);
+    if (!isOpen) return;
 
-  // Adicionar: Fechar menu ao clicar em qualquer link
-  const handleLinkClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    // Tenta scroll suave primeiro
-    if (smoothScrollTo(href)) {
-      e.preventDefault();
-    }
-    // Fecha o menu após o clique
-    onClose();
-  };
+    const close = () => onClose();
+
+    // Observa rolagem/gestos da janela
+    window.addEventListener("scroll", close, { passive: true });
+    window.addEventListener("wheel", close, { passive: true });
+    window.addEventListener("touchmove", close, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", close);
+      window.removeEventListener("wheel", close);
+      window.removeEventListener("touchmove", close);
+    };
+  }, [isOpen, onClose]);
+
+  // Impede que o gesto de rolagem dentro do painel borbulhe para o body (opcional)
+  useEffect(() => {
+    if (!isOpen || !panelRef.current) return;
+    const el = panelRef.current;
+    const stop = (e: Event) => e.stopPropagation();
+    el.addEventListener("wheel", stop, { passive: true });
+    el.addEventListener("touchmove", stop, { passive: true });
+    return () => {
+      el.removeEventListener("wheel", stop);
+      el.removeEventListener("touchmove", stop);
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="z-40 md:hidden" role="dialog" aria-modal>
-      <div
-        className="fixed inset-0 bg-black/40"
+    <>
+      {/* Overlay que fecha ao clicar */}
+      <button
+        aria-label="Fechar menu"
         onClick={onClose}
-        aria-hidden
+        className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[1px] md:hidden"
       />
+
+      {/* Painel */}
       <div
         ref={panelRef}
-        className="fixed z-50 p-4 bg-white border shadow-xl inset-x-3 top-3 rounded-2xl border-slate-200"
+        role="dialog"
+        aria-modal="true"
+        className="fixed inset-x-0 top-0 z-50 md:hidden"
       >
-        <nav aria-label="Menu móvel" className="flex flex-col gap-2">
-          {items.map((it) => (
-            <a
-              key={it.href}
-              href={it.href}
-              onClick={(e) => handleLinkClick(e, it.href)}
-              className="rounded-lg px-3 py-3 text-base text-slate-900 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61]"
+        <div className="ml-auto mr-3 mt-3 w-[88%] max-w-sm rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
+          <div className="flex items-center justify-between px-4 py-3 border-b">
+            <span className="font-semibold">Menu</span>
+            <button
+              onClick={onClose}
+              aria-label="Fechar"
+              className="p-2 rounded hover:bg-zinc-100"
             >
-              {it.label}
-            </a>
-          ))}
+              <IconClose className="h-6 w-6" />
+            </button>
+          </div>
 
-          {/* CTA visível no mobile */}
-          <a
-            href="#cadastro"
-            onClick={(e) => {
-              if (smoothScrollTo("#cadastro")) e.preventDefault();
-              onClose();
-            }}
-            className="mt-2 inline-flex h-11 items-center justify-center rounded-lg bg-[#FBBB18] px-4 font-semibold text-black"
-          >
-            Cadastre-se grátis!
-          </a>
-        </nav>
+          {/* Lista rolável sem travar o body */}
+          <nav className="max-h-[80vh] overflow-auto p-3 space-y-1">
+            {items.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={onClose}
+                className="block rounded px-3 py-2 text-base hover:bg-zinc-100"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
-/* ================= Componente principal ================= */
-export default function SiteHeader({
-  brandName = "Pipoca Academy",
-  logoSrc,
-  navItems = DEFAULT_NAV,
-  className,
-  ctaText = "Cadastre-se grátis!",
-}: SiteHeaderProps) {
+export default function SiteHeader() {
   const [open, setOpen] = useState(false);
 
-  // Adicionar: Fechar menu quando ocorrer scroll
+  // Itens de exemplo — troque pelos seus
+  const navItems: NavItem[] = [
+    { label: "Início", href: "/" },
+    { label: "Serviços", href: "/servicos" },
+    { label: "Portfólio", href: "/portfolio" },
+    { label: "Contato", href: "/contato" },
+  ];
+
+  // Fecha ao redimensionar para desktop (evita ficar preso aberto ao mudar viewport)
   useEffect(() => {
-    function handleScroll() {
-      if (open) {
-        setOpen(false);
-      }
-    }
-
-    // Adiciona o event listener quando o menu está aberto
-    if (open) {
-      window.addEventListener("scroll", handleScroll, { passive: true });
-    }
-
-    // Remove o event listener quando o componente é desmontado ou o menu fecha
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
+    const onResize = () => {
+      if (window.innerWidth >= 768 && open) setOpen(false);
     };
-  }, [open]); // Executa sempre que o estado 'open' mudar
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [open]);
 
   return (
-    <header
-      className={classNames(
-        // sticky + fundo 95% branco, altura 72px, padding 8px 80px no desktop
-        "sticky top-0 z-50 w-full bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80",
-        "border-b border-slate-200",
-        className
-      )}
-    >
-      <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-4 md:px-20">
-        <Brand brandName={brandName} logoSrc={logoSrc} />
+    <header className="sticky top-0 z-30 w-full border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+        <Brand brandName="Minha Marca" />
 
         <DesktopNav items={navItems} />
 
-        <div className="flex items-center gap-3">
-          <CTAButton text={ctaText} />
+        {/* Botão mobile */}
+        <div className="md:hidden">
           <button
-            type="button"
-            className="-mr-2 inline-flex items-center rounded-lg p-2 text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61] md:hidden"
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
             aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            className="inline-flex items-center justify-center rounded-lg p-2 hover:bg-zinc-100 outline-none focus-visible:ring-2 focus-visible:ring-purple-600"
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? <IconClose /> : <IconMenu />}
+            {open ? <IconClose className="h-6 w-6" /> : <IconMenu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
-      <MobileMenu
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        items={navItems}
-      />
+      {/* Mobile menu */}
+      <MobileMenu isOpen={open} onClose={() => setOpen(false)} items={navItems} />
     </header>
   );
 }
