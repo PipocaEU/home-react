@@ -1,5 +1,6 @@
 // MentoriaSection.tsx
 import React from "react";
+import icon from "../assets/cursos-btn-icon.png";
 
 type MentoriaSectionProps = {
   /** imagem de background do topo */
@@ -12,14 +13,14 @@ export default function MentoriaSection({
   alt = "Mentores da Pipoca Academy",
 }: MentoriaSectionProps) {
   return (
-    <section id="mentoria" className="bg-white py-24 px-4 md:px-8">
+    <section id="mentoria" className="px-4 py-24 bg-white md:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Imagem de topo (vem por props) */}
-        <div className="h-96 rounded-2xl overflow-hidden mb-16">
-          <img src={bgImage} alt={alt} className="w-full h-full object-cover" />
+        <div className="mb-16 overflow-hidden h-96 rounded-2xl">
+          <img src={bgImage} alt={alt} className="object-cover w-full h-full" />
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-12">
+        <div className="flex flex-col gap-12 lg:flex-row">
           {/* Coluna esquerda - Texto e botão CTA */}
           <div className="lg:w-2/5">
             <span className="inline-block bg-[#E6F7F9] text-[#0E7981] text-sm font-semibold px-4 py-1 rounded-full mb-6">
@@ -38,8 +39,8 @@ export default function MentoriaSection({
               necessária para dar o próximo passo na sua carreira.
             </p>
 
-            <button className="w-full md:w-auto bg-[#FBBB18] text-[#2A1140] font-bold text-lg py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-              <svg
+            <button className="w-full md:w-auto bg-[#FBBB18] text-[#2A1140] font-bold text-lg py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2">
+              {/* <svg
                 width="16"
                 height="18"
                 viewBox="0 0 16 18"
@@ -54,14 +55,15 @@ export default function MentoriaSection({
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-              </svg>
+              </svg> */}
+              <img src={icon} />
               Tenho interesse em uma mentoria
             </button>
           </div>
 
           {/* Coluna direita - Cards de benefícios */}
           <div className="lg:w-3/5">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {/* Card 1 - Plano de Carreira */}
               <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
                 <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">

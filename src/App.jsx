@@ -18,20 +18,75 @@ import marcus from "./assets/team/marcus_profile.jpg";
 import carol from "./assets/team/carol_profile.jpg";
 import carlos from "./assets/team/carlos_profile.jpg";
 import caio from "./assets/team/caio_profile.jpg";
+import aysla from "./assets/team/aysla_profile.jpeg";
 
 const team = [
-  { nome: "Caroline Videira", cargo: "Scrum Master", foto: carol, linkedin: "https://linkedin.com/in/ana" },
-  { nome: "Fernando Freitas", cargo: "Scrum Master", foto: fernando, linkedin: "https://linkedin.com/in/ana" },
-  { nome: "Marcus", cargo: "Product Owner", foto: marcus, linkedin: "https://linkedin.com/in/ana" },
-  { nome: "Caio", cargo: "Product Owner", foto: caio, linkedin: "https://linkedin.com/in/csantos" },
-  { nome: "Mozart", cargo: "User Experience Design(UX)", foto: caio, linkedin: "https://linkedin.com/in/mariana" },
-  { nome: "Ary Hauffe Neto", cargo: "FullStack Developer", foto: ary, linkedin: "https://www.linkedin.com/in/ary-hauffe-neto-bb6a0a23/" },
-  { nome: "Aysla Loureiro", cargo: "FullStack Developer", foto: caio, linkedin: "https://linkedin.com/in/csantos" },
-  { nome: "Leandro", cargo: "Quality Assurance (QA)", foto: caio, linkedin: "https://linkedin.com/in/mariana" },
-  { nome: "Giovana", cargo: "User Experience Design(UX)", foto: caio, linkedin: "https://linkedin.com/in/mariana" },
-  { nome: "Simone", cargo: "Quality Assurance (QA)", foto: caio, linkedin: "https://linkedin.com/in/ana" },
-  { nome: "Carlos ", cargo: "Quality Assurance (QA)", foto: carlos, linkedin: "https://linkedin.com/in/csantos" },
-  { nome: "Carlos ", cargo: "Quality Assurance (QA)", foto: carlos, linkedin: "https://linkedin.com/in/csantos" },
+  {
+    nome: "Caroline Videira",
+    cargo: "Scrum Master",
+    foto: carol,
+    linkedin: "https://linkedin.com/in/ana",
+  },
+  {
+    nome: "Fernando Freitas",
+    cargo: "Scrum Master",
+    foto: fernando,
+    linkedin: "https://linkedin.com/in/ana",
+  },
+  {
+    nome: "Marcus",
+    cargo: "Product Owner",
+    foto: marcus,
+    linkedin: "https://linkedin.com/in/ana",
+  },
+  {
+    nome: "Caio",
+    cargo: "Product Owner",
+    foto: caio,
+    linkedin: "https://linkedin.com/in/csantos",
+  },
+  {
+    nome: "Mozart",
+    cargo: "User Experience Design(UX)",
+    foto: caio,
+    linkedin: "https://linkedin.com/in/mariana",
+  },
+  {
+    nome: "Ary Hauffe Neto",
+    cargo: "FullStack Developer",
+    foto: ary,
+    linkedin: "https://www.linkedin.com/in/ary-hauffe-neto-bb6a0a23/",
+  },
+  {
+    nome: "Aysla Loureiro",
+    cargo: "FullStack Developer",
+    foto: aysla,
+    linkedin: "https://www.linkedin.com/in/aysla-loureiro-664004322",
+  },
+  {
+    nome: "Leandro",
+    cargo: "Quality Assurance (QA)",
+    foto: caio,
+    linkedin: "https://www.linkedin.com/in/leandromendespeixoto",
+  },
+  {
+    nome: "Giovana",
+    cargo: "User Experience Design(UX)",
+    foto: caio,
+    linkedin: "https://linkedin.com/in/mariana",
+  },
+  {
+    nome: "Simone",
+    cargo: "Quality Assurance (QA)",
+    foto: caio,
+    linkedin: "https://www.linkedin.com/in/smgabionetta",
+  },
+  {
+    nome: "Carlos ",
+    cargo: "Quality Assurance (QA)",
+    foto: carlos,
+    linkedin: "https://www.linkedin.com/in/carlosrobertoaj",
+  },
   // ...
 ];
 
@@ -42,8 +97,8 @@ export default function App() {
       <Hero imageSrc={heroImage} imageAlt="Pessoa estudando em um notebook" />
       <CoursesSection />
       <TrilhaSection />
-       <MentoriaSection bgImage={mentoriaImg} alt="Sessão de mentoria" />
-       <EquipeSection team={team} />
+      <MentoriaSection bgImage={mentoriaImg} alt="Sessão de mentoria" />
+      <EquipeSection team={team} />
       <CadastroSection
         images={{
           left: primeiraImg,
