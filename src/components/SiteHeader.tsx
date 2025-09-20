@@ -159,6 +159,16 @@ function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
     }
   }, [isOpen]);
 
+  // Adicionar: Fechar menu ao clicar em qualquer link
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Tenta scroll suave primeiro
+    if (smoothScrollTo(href)) {
+      e.preventDefault();
+    }
+    // Fecha o menu após o clique
+    onClose();
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -177,7 +187,7 @@ function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
             <a
               key={it.href}
               href={it.href}
-              onClick={onClose}
+              onClick={(e) => handleLinkClick(e, it.href)}
               className="rounded-lg px-3 py-3 text-base text-slate-900 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61]"
             >
               {it.label}
