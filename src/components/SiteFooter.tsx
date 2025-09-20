@@ -40,12 +40,12 @@ export default function SiteFooter({
   brandName = "Pipoca Academy",
   logoSrc,
   links = {
-    home: "#",
-    cursos: "#",
-    trilhas: "#",
-    mentoria: "#",
-    time: "#",
-    formulario: "#",
+    home: "#hero",
+    cursos: "#cursos",
+    trilhas: "#trilhas",
+    mentoria: "#mentoria",
+    time: "#equipe",
+    formulario: "#cadastro",
   },
   policies = {
     privacidade: "#",
