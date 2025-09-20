@@ -2,6 +2,7 @@ import SiteHeader from "./components/SiteHeader";
 import Hero from "./components/Hero";
 import { CoursesSection } from "./components/CoursesSection";
 import logo from "./assets/pipoca-academy-logo.png";
+import logoHeader from "./assets/logo_header.png";
 import heroImage from "./assets/img_hero.jpg";
 import mentoriaImg from "./assets/img_mentores.jpg";
 import primeiraImg from "./assets/cadastro/primeira_img.jpg";
@@ -99,7 +100,7 @@ const team = [
 export default function App() {
   return (
     <>
-      <SiteHeader brandName="Pipoca Academy" logoSrc={logo} />
+      <SiteHeader brandName="Pipoca Academy" logoSrc={logoHeader} />
       <Hero imageSrc={heroImage} imageAlt="Pessoa estudando em um notebook" />
       <CoursesSection />
       <TrilhaSection />
