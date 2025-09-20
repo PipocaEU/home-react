@@ -145,19 +145,12 @@ function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
     return () => document.removeEventListener("keydown", onKey);
   }, [isOpen, onClose]);
 
-  useEffect(() => {
-    const { style } = document.body;
-    if (isOpen) {
-      const prev = style.overflow;
-      style.overflow = "hidden";
-      return () => {
-        style.overflow = prev;
-      };
-    }
-  }, [isOpen]);
-
+ 
   // Adicionar: Fechar menu ao clicar em qualquer link
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
     // Tenta scroll suave primeiro
     if (smoothScrollTo(href)) {
       e.preventDefault();
@@ -220,20 +213,19 @@ export default function SiteHeader({
 
   // Adicionar: Fechar menu quando ocorrer scroll
   useEffect(() => {
-    function handleScroll() {
-      if (open) {
-        setOpen(false);
-      }
-    }
+    if (!open) return;
 
-    // Adiciona o event listener quando o menu está aberto
-    if (open) {
-      window.addEventListener('scroll', handleScroll, { passive: true });
-    }
+    const close = () => setOpen(false);
+    // Fecha ao rolar a página
+    window.addEventListener("scroll", close, { passive: true });
+    // Fecha com roda do mouse (desktop) e gesto de rolagem (mobile)
+    window.addEventListener("wheel", close, { passive: true });
+    window.addEventListener("touchmove", close, { passive: true });
 
-    // Remove o event listener quando o componente é desmontado ou o menu fecha
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", close);
+      window.removeEventListener("wheel", close);
+      window.removeEventListener("touchmove", close);
     };
   }, [open]); // Executa sempre que o estado 'open' mudar
 
