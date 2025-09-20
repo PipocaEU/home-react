@@ -22,6 +22,7 @@ import aysla from "./assets/team/aysla_profile.jpeg";
 import leandro from "./assets/team/leandro_profile.jpeg";
 import mozart from "./assets/team/mozart_profile.jpeg";
 import simone from "./assets/team/simone_profile.png";
+import giovanna from "./assets/team/giovanna_profile.jpeg";
 
 const team = [
   {
@@ -55,10 +56,11 @@ const team = [
     linkedin: "https://www.linkedin.com/in/mozartuxdesigner",
   },
   {
-    nome: "Giovana",
+    nome: "Giovanna Meireles",
     cargo: "UX/UI Designer",
-    foto: caio,
-    linkedin: "https://linkedin.com/in/mariana",
+    foto: giovanna,
+    linkedin:
+      "https://www.linkedin.com/in/giovanna-meireles182/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
   },
   {
     nome: "Ary Hauffe Neto",
