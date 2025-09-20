@@ -56,7 +56,7 @@ export default function TrilhaSection() {
   };
 
   return (
-    <section className="bg-[#FBBB18] py-24 px-4 md:px-8">
+    <section id ="trilhas" className="bg-[#FBBB18] py-24 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="bg-white rounded-xl p-8 md:p-12 shadow-lg">
           <div className="flex flex-col lg:flex-row gap-12">
