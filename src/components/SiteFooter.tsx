@@ -1,5 +1,10 @@
 // SiteFooter.tsx
 import React from "react";
+import instagramIcon from "../assets/instagramicon.png";
+import youtubeIcon from "../assets/youtubeicon.png";
+import linkedinIcon from "../assets/linkedinicon.png";
+import xIcon from "../assets/xicon.png";
+import facebookIcon from "../assets/facebookIcon.png";
 
 interface BrandProps {
   brandName?: string;
@@ -57,9 +62,9 @@ export default function SiteFooter({
 }: SiteFooterProps) {
   return (
     <footer className="w-full bg-[#581B61] text-white">
-      <div className="mx-auto max-w-[1130px] px-6 py-10 flex flex-col justify-between flex-wrap gap-8">
+      <div className=" mx-auto max-w-[1130px] px-6 py-10 flex flex-col  justify-between flex-wrap gap-8">
         {/* Top row */}
-        <div className="flex items-center gap-x-10 gap-y-6">
+        <div className="flex flex-col items-center sm:flex-row sm:items-center sm:justify-between gap-x-10 gap-y-6">
           <Brand brandName={brandName} logoSrc={logoSrc} />
 
           <nav
@@ -121,12 +126,12 @@ export default function SiteFooter({
         <hr className="w-full border-t border-white/60" />
 
         {/* Bottom row */}
-        <div className="flex flex-wrap items-start justify-center gap-6 text-sm font-medium leading-[17px]">
+        <div className="flex flex-col  justify-center sm:flex-row sm:items-center sm:justify-between gap-6 text-sm font-medium leading-[17px]">
           <span className="text-center">
             © 2025 Pipoca Academy. Todos os direitos reservados.
           </span>
 
-          <div className="flex flex-wrap items-center gap-6">
+          <div className="flex flex-col items-center gap-6 sm:flex-row ">
             <a
               className="hover:underline underline-offset-4"
               href={policies.privacidade}
@@ -200,79 +205,84 @@ function Brand({ brandName = "Pipoca Academy", logoSrc }: BrandProps) {
 /* Icons: minimal inline SVGs to evitar dependências */
 function FacebookIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none">
-      <path
-        d="M13.5 21v-7h2.3l.4-3h-2.7V9.1c0-.9.3-1.5 1.7-1.5h1V4.9c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8V11H8v3h2.3v7h3.2z"
-        fill="currentColor"
-      />
-    </svg>
+    // <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none">
+    //   <path
+    //     d="M13.5 21v-7h2.3l.4-3h-2.7V9.1c0-.9.3-1.5 1.7-1.5h1V4.9c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8V11H8v3h2.3v7h3.2z"
+    //     fill="currentColor"
+    //   />
+    // </svg>
+    <img src={facebookIcon} />
   );
 }
 
 function InstagramIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none">
-      <rect
-        x="3"
-        y="3"
-        width="18"
-        height="18"
-        rx="5"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
-      <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="2" />
-      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
-    </svg>
+    // <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none">
+    //   <rect
+    //     x="3"
+    //     y="3"
+    //     width="18"
+    //     height="18"
+    //     rx="5"
+    //     stroke="currentColor"
+    //     strokeWidth="2"
+    //   />
+    //   <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="2" />
+    //   <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+    // </svg>
+    <img src={instagramIcon} />
   );
 }
 
 function XIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none">
-      <path
-        d="M4 4l7.2 8.2L4.7 20H7l5-5.5L16.9 20H20l-7.5-8.5L19.3 4H17L12 9.2 8.2 4H4z"
-        fill="currentColor"
-      />
-    </svg>
+    // <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none">
+    //   <path
+    //     d="M4 4l7.2 8.2L4.7 20H7l5-5.5L16.9 20H20l-7.5-8.5L19.3 4H17L12 9.2 8.2 4H4z"
+    //     fill="currentColor"
+    //   />
+    // </svg>
+    <img src={xIcon} />
   );
 }
 
 function LinkedinIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none">
-      <rect
-        x="3"
-        y="3"
-        width="18"
-        height="18"
-        rx="2"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
-      <rect x="6.2" y="10" width="2.7" height="7.7" fill="currentColor" />
-      <circle cx="7.5" cy="7.2" r="1.4" fill="currentColor" />
-      <path
-        d="M12 10h2.6a3.4 3.4 0 013.4 3.4v4.3h-2.7v-3.9c0-1.1-.7-1.9-1.8-1.9H12v5.8h-2.7V10H12z"
-        fill="currentColor"
-      />
-    </svg>
+    // <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none">
+    //   <rect
+    //     x="3"
+    //     y="3"
+    //     width="18"
+    //     height="18"
+    //     rx="2"
+    //     stroke="currentColor"
+    //     strokeWidth="2"
+    //   />
+    //   <rect x="6.2" y="10" width="2.7" height="7.7" fill="currentColor" />
+    //   <circle cx="7.5" cy="7.2" r="1.4" fill="currentColor" />
+    //   <path
+    //     d="M12 10h2.6a3.4 3.4 0 013.4 3.4v4.3h-2.7v-3.9c0-1.1-.7-1.9-1.8-1.9H12v5.8h-2.7V10H12z"
+    //     fill="currentColor"
+    //   />
+    // </svg>
+    <img src={linkedinIcon} />
   );
 }
 
 function YoutubeIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none">
-      <rect
-        x="2.5"
-        y="6.5"
-        width="19"
-        height="11"
-        rx="3"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
-      <path d="M11 10.2l4.2 2.3L11 14.8v-4.6z" fill="currentColor" />
-    </svg>
+    // <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none">
+    //   <rect
+    //     x="2.5"
+    //     y="6.5"
+    //     width="19"
+    //     height="11"
+    //     rx="3"
+    //     stroke="currentColor"
+    //     strokeWidth="2"
+    //   />
+    //   <path d="M11 10.2l4.2 2.3L11 14.8v-4.6z" fill="currentColor" />
+    // </svg>
+    <img src={youtubeIcon} />
   );
 }
