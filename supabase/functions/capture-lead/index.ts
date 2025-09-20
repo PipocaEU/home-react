@@ -1,20 +1,20 @@
-// supabase/functions/capture-lead/index.ts
-// Deno + Supabase Edge Function
+// Use importações completas com URLs
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { createClient } from "@supabase/supabase-js";
 
-const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
-const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+// Resto do código permanece igual...
+const SUPABASE_URL = Deno.env.get("SB_URL")!;
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SERVICE_ROLE_KEY")!;
 const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY")!;
-const FROM_NAME = Deno.env.get("FROM_NAME") ?? "Sua Marca";
-const FROM_EMAIL = Deno.env.get("FROM_EMAIL") ?? "no-reply@seu-dominio.com";
+const FROM_NAME = Deno.env.get("FROM_NAME") ?? "Pipoca Agil";
+const FROM_EMAIL = Deno.env.get("FROM_EMAIL") ?? "pipocaagileu@gmail.com";
 
 // Supabase client com service role (ignora RLS)
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
 // util: CORS
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*", // ou troque por seu domínio do GitHub Pages
+  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
@@ -23,7 +23,9 @@ serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
+  
   try {
+    // Resto do seu código...
     if (req.method !== "POST") {
       return new Response(JSON.stringify({ error: "Method not allowed" }), {
         status: 405,
@@ -57,7 +59,8 @@ serve(async (req) => {
     if (dbError) {
       // se houver unique violation (e-mail já existe), ignore para UX suave
       const conflict =
-        (dbError as any)?.code === "23505" || String(dbError.message).includes("duplicate");
+        (dbError as any)?.code === "23505" ||
+        String(dbError.message).includes("duplicate");
       if (!conflict) {
         console.error("DB error:", dbError);
         return new Response(JSON.stringify({ error: "Falha ao salvar" }), {
@@ -107,11 +110,3 @@ serve(async (req) => {
     });
   }
 });
-
-
-// supabase secrets set \
-//   SUPABASE_URL="bawzlwhqnlhaxctghqlz.supabase.co" \
-//   SUPABASE_SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhd3psd2hxbmxoYXhjdGdocWx6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODI5MDIyNCwiZXhwIjoyMDczODY2MjI0fQ.fQfeIV3uVOr1Rrc4nkovRC1ZILtpW76SHhAJuw-7Ouw" \
-//   BREVO_API_KEY="WVPOqADnmsvtaExJ" \
-//   FROM_NAME="Pipoca Agil" \
-//   FROM_EMAIL="pipocaagileu@gmail.com"
