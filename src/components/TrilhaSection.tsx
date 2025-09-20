@@ -188,7 +188,7 @@ export default function TrilhaSection() {
               </h2>
 
               <p className="text-lg text-[#495057] mb-8 leading-relaxed">
-                “Nossas trilhas foram criadas para te colocar no caminho do seu
+                Nossas trilhas foram criadas para te colocar no caminho do seu
                 futuro. Cada uma oferece um passo a passo claro, organizado e
                 prático, para que você desenvolva habilidades essenciais para a
                 carreira dos seus sonhos.

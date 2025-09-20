@@ -9,12 +9,11 @@ interface CadastroSectionProps {
 export default function CadastroSection({
   className = "",
   images = {
-    left: "/images/pexels-mart-production-7606061.jpg", // troque pelos seus paths
+    left: "/images/pexels-mart-production-7606061.jpg",
     center: "/images/senhor-estudando.jpg",
     right: "/images/pexels-diva-plavalaguna-6150385.jpg",
   },
 }: CadastroSectionProps) {
-  // 1) defina um tipo para as opções (opcional, mas recomendado)
   type Situacao =
     | "estudante"
     | "buscando"
@@ -23,23 +22,22 @@ export default function CadastroSection({
     | "autonomo"
     | "outro";
 
-  // 2) tipagem do estado do formulário
   type FormData = {
     nome: string;
     email: string;
-    situacao: Situacao | ""; // "" para estado inicial (nenhuma selecionada)
+    situacao: Situacao | "";
     carreira: string;
   };
 
-  // 3) estado inicial
   const [formData, setFormData] = useState<FormData>({
     nome: "",
     email: "",
-    situacao: "", 
+    situacao: "",
     carreira: "",
   });
 
-  // 4) handleChange aceitando INPUT e SELECT (e até TEXTAREA se quiser)
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -51,10 +49,47 @@ export default function CadastroSection({
       [name]: value as FormData[keyof FormData],
     }));
   };
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Dados do formulário:", formData);
-    alert("Cadastro enviado!");
+    if (loading) return;
+    
+    setLoading(true);
+    try {
+      const res = await fetch("https://bawzlwhqnlhaxctghqlz.supabase.co/functions/v1/capture-lead", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nome: formData.nome,
+          email: formData.email,
+          situacao: formData.situacao,
+          carreira: formData.carreira,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        const errorMsg = data?.error || "Falha ao enviar. Tente novamente.";
+        alert(errorMsg);
+      } else {
+        alert("Inscrição confirmada! Confira seu e-mail para a confirmação.");
+        // Limpar o formulário
+        setFormData({ 
+          nome: "", 
+          email: "", 
+          situacao: "", 
+          carreira: "" 
+        });
+      }
+    } catch (err) {
+      console.error("Erro na requisição:", err);
+      alert("Falha de rede. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -144,6 +179,7 @@ export default function CadastroSection({
                     placeholder="Seu nome completo"
                     className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 placeholder-[#ADAEBC] focus:outline-none focus:ring-2 focus:ring-[#581B61]"
                     required
+                    disabled={loading}
                   />
                 </FormField>
 
@@ -162,6 +198,7 @@ export default function CadastroSection({
                     placeholder="seuemail@dominio.com"
                     className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 placeholder-[#ADAEBC] focus:outline-none focus:ring-2 focus:ring-[#581B61]"
                     required
+                    disabled={loading}
                   />
                 </FormField>
 
@@ -176,13 +213,9 @@ export default function CadastroSection({
                     name="situacao"
                     value={formData.situacao}
                     onChange={handleChange}
-                    className="
-      h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white
-      pl-10 pr-3 text-[16px] leading-6
-      text-[#000] placeholder-[#ADAEBC]
-      focus:outline-none focus:ring-2 focus:ring-[#581B61]
-    "
+                    className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 text-[#000] placeholder-[#ADAEBC] focus:outline-none focus:ring-2 focus:ring-[#581B61]"
                     required
+                    disabled={loading}
                   >
                     <option value="" disabled>
                       Selecione sua situação
@@ -211,15 +244,17 @@ export default function CadastroSection({
                     placeholder="Ex: Desenvolvedor Full-Stack, Cientista de Dados"
                     className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 placeholder-[#ADAEBC] focus:outline-none focus:ring-2 focus:ring-[#581B61]"
                     required
+                    disabled={loading}
                   />
                 </FormField>
 
                 {/* Botão */}
                 <button
                   type="submit"
-                  className="mt-3 h-12 w-full rounded-lg bg-[#431B61] text-white shadow-[0px_2px_4px_rgba(0,0,0,0.10),0px_4px_6px_rgba(0,0,0,0.10)] transition-colors hover:bg-[#3a1653] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#581B61] font-bold text-[16px]"
+                  disabled={loading}
+                  className="mt-3 h-12 w-full rounded-lg bg-[#431B61] text-white shadow-[0px_2px_4px_rgba(0,0,0,0.10),0px_4px_6px_rgba(0,0,0,0.10)] transition-colors hover:bg-[#3a1653] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#581B61] font-bold text-[16px] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Enviar Cadastro
+                  {loading ? "Enviando..." : "Enviar Cadastro"}
                 </button>
               </form>
 
@@ -242,6 +277,8 @@ export default function CadastroSection({
     </section>
   );
 }
+
+
 
 /* ====== Subcomponentes ====== */
 function Bullet({ children }: { children: React.ReactNode }) {
