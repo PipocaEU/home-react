@@ -16,7 +16,7 @@ console.log("Configuração carregada:", {
 });
 
 // Verifique se todas as variáveis necessárias estão presentes
-if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !BREVO_API_KEY) {
+if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   console.error("Variáveis de ambiente faltando:", {
     SUPABASE_URL: !SUPABASE_URL,
     SUPABASE_SERVICE_ROLE_KEY: !SUPABASE_SERVICE_ROLE_KEY,
@@ -33,7 +33,7 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
-  console.log("Nova requisição recebida:", req.method, req.url);
+  console.log("Nova requisição recebida:", req.method);
   
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -47,10 +47,23 @@ serve(async (req) => {
       });
     }
 
-    const body = await req.json();
-    console.log("Dados recebidos:", body);
-    
-    const { nome, email, situacao, carreira } = body;
+    // Parse seguro do JSON
+    let body;
+    try {
+      const rawBody = await req.text(); // Primeiro leia como texto
+      console.log("Raw body received:", rawBody);
+      
+      body = JSON.parse(rawBody); // Depois parseie como JSON
+      console.log("JSON parsed successfully:", body);
+    } catch (parseError) {
+      console.error("Erro ao parsear JSON:", parseError);
+      return new Response(JSON.stringify({ error: "JSON inválido" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
+    const { nome, email, situacao, carreira } = body ?? {};
 
     // validação básica
     const emailOk = typeof email === "string" && /^\S+@\S+\.\S+$/.test(email);
@@ -90,37 +103,58 @@ serve(async (req) => {
       console.log("E-mail duplicado, continuando...");
     }
 
-    // envia e-mail via Brevo
-    console.log("Enviando e-mail via Brevo...");
-    const mailRes = await fetch("https://api.brevo.com/v3/smtp/email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "api-key": BREVO_API_KEY!,
-      },
-      body: JSON.stringify({
-        sender: { name: FROM_NAME, email: FROM_EMAIL },
-        to: [{ email, name: nome }],
-        subject: "Confirmação da sua inscrição",
-        htmlContent: `
-          <div style="font-family:system-ui,Arial,sans-serif;font-size:16px;color:#222">
-            <p>Olá, ${nome}!</p>
-            <p>Recebemos seu cadastro e você já está na nossa lista.</p>
-            <p>Em breve enviaremos novidades, materiais e convites de eventos.</p>
-            <p>Abraços,<br>${FROM_NAME}</p>
-          </div>
-        `,
-      }),
-    });
+    // envia e-mail via Brevo (se API key estiver configurada e válida)
+    if (BREVO_API_KEY && BREVO_API_KEY !== "WVPOqADnmsvtaExJ") {
+      console.log("Enviando e-mail via Brevo...");
+      try {
+        const mailRes = await fetch("https://api.brevo.com/v3/smtp/email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": BREVO_API_KEY,
+          },
+          body: JSON.stringify({
+            sender: { name: FROM_NAME, email: FROM_EMAIL },
+            to: [{ email, name: nome }],
+            subject: "Confirmação da sua inscrição",
+            htmlContent: `
+              <div style="font-family:system-ui,Arial,sans-serif;font-size:16px;color:#222">
+                <p>Olá, ${nome}!</p>
+                <p>Recebemos seu cadastro e você já está na nossa lista.</p>
+                <p>Em breve enviaremos novidades, materiais e convites de eventos.</p>
+                <p>Abraços,<br>${FROM_NAME}</p>
+              </div>
+            `,
+          }),
+        });
 
-    if (!mailRes.ok) {
-      const text = await mailRes.text();
-      console.error("Erro no Brevo:", text);
+        if (!mailRes.ok) {
+          const errorText = await mailRes.text();
+          console.error("Erro no Brevo:", errorText);
+          
+          // Mensagem mais amigável para o log
+          if (errorText.includes("Key not found") || errorText.includes("unauthorized")) {
+            console.error("❌ API key do Brevo inválida ou não autorizada");
+            console.error("💡 Acesse: https://app.brevo.com/account/keys/api");
+            console.error("💡 Verifique se a key tem permissão SMTP");
+            console.error("💡 Verifique se o email remetente está verificado");
+          }
+        } else {
+          console.log("✅ E-mail enviado com sucesso via Brevo!");
+        }
+      } catch (mailError) {
+        console.error("Erro ao tentar enviar email:", mailError);
+      }
     } else {
-      console.log("E-mail enviado com sucesso!");
+      console.log("⚠️  Brevo não configurado ou usando key inválida");
+      console.log("💡 Configure uma API key válida em: https://app.brevo.com/account/keys/api");
     }
 
-    return new Response(JSON.stringify({ ok: true }), {
+    return new Response(JSON.stringify({ 
+      ok: true,
+      message: "Cadastro realizado com sucesso!",
+      emailEnviado: BREVO_API_KEY && BREVO_API_KEY !== "WVPOqADnmsvtaExJ"
+    }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
