@@ -56,7 +56,7 @@ export default function CadastroSection({
     
     setLoading(true);
     try {
-      const res = await fetch("https://bawzlwhqnlhaxctghqlz.supabase.co/functions/v1/capture-lead", {
+      const res = await fetch("https://bawzlwhqnlhaxctghqlz.functions.supabase.co/capture-lead", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
