@@ -160,7 +160,7 @@ export default function SiteFooter({
     >
       Configurações de Cookies
       </a>
-    </divv>
+    </div>
      </div>
       </div>
     </footer>
