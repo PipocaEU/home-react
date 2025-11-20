@@ -48,9 +48,9 @@ export default function SiteFooter({
     formulario: "#cadastro",
   },
   policies = {
-    privacidade: "/PDF TESTE.pdf",
-    termos: "/PDF TESTE.pdf",
-    cookies: "/PDF TESTE.pdf",
+    privacidade: "/pdf-teste.pdf",
+    termos: "/pdf-teste.pdf",
+    cookies: "/pdf-teste.pdf",
   },
   social = {
     facebook: "#",
