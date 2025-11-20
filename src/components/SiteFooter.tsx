@@ -5,7 +5,11 @@ import youtubeIcon from "../assets/youtubeicon.png";
 import linkedinIcon from "../assets/linkedinicon.png";
 import xIcon from "../assets/xicon.png";
 import facebookIcon from "../assets/facebookIcon.png";
-
+const policies = {
+  privacidade: "/PDF TESTE.pdf",
+  termos: "/PDF TESTE.pdf",
+  cookies: "/PDF TESTE.pdf"
+};
 interface BrandProps {
   brandName?: string;
   logoSrc?: string;
@@ -126,32 +130,38 @@ export default function SiteFooter({
         <hr className="w-full border-t border-white/60" />
 
         {/* Bottom row */}
-        <div className="flex flex-col  justify-center sm:flex-row sm:items-center sm:justify-between gap-6 text-sm font-medium leading-[17px]">
-          <span className="text-center">
-            © 2025 Pipoca Academy. Todos os direitos reservados.
-          </span>
+       <div className="flex flex-col justify-center sm:flex-row sm:items-center sm:justify-between gap-6 text-sm font-medium leading-[17px]">
+  <span className="text-center">
+    © 2025 Pipoca Academy. Todos os direitos reservados.
+  </span>
 
-          <div className="flex flex-col items-center gap-6 sm:flex-row ">
-            <a
-              className="hover:underline underline-offset-4"
-              href={policies.privacidade}
-            >
-              Política de Privacidade
-            </a>
-            <a
-              className="hover:underline underline-offset-4"
-              href={policies.termos}
-            >
-              Termos de Serviço
-            </a>
-            <a
-              className="hover:underline underline-offset-4"
-              href={policies.cookies}
-            >
-              Configurações de Cookies
-            </a>
-          </div>
-        </div>
+  <div className="flex flex-col items-center gap-6 sm:flex-row">
+    <a
+      className="hover:underline underline-offset-4"
+      href={policies.privacidade}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Política de Privacidade
+    </a>
+    <a
+      className="hover:underline underline-offset-4"
+      href={policies.termos}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Termos de Serviço
+    </a>
+    <a
+      className="hover:underline underline-offset-4"
+      href={policies.cookies}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Configurações de Cookies
+      </a>
+    </divv>
+     </div>
       </div>
     </footer>
   );
