@@ -5,11 +5,7 @@ import youtubeIcon from "../assets/youtubeicon.png";
 import linkedinIcon from "../assets/linkedinicon.png";
 import xIcon from "../assets/xicon.png";
 import facebookIcon from "../assets/facebookIcon.png";
-const policies = {
-  privacidade: "/PDF TESTE.pdf",
-  termos: "/PDF TESTE.pdf",
-  cookies: "/PDF TESTE.pdf"
-};
+
 interface BrandProps {
   brandName?: string;
   logoSrc?: string;
@@ -52,9 +48,9 @@ export default function SiteFooter({
     formulario: "#cadastro",
   },
   policies = {
-    privacidade: "#",
-    termos: "#",
-    cookies: "#",
+    privacidade: "/PDF TESTE.pdf",
+    termos: "/PDF TESTE.pdf",
+    cookies: "/PDF TESTE.pdf",
   },
   social = {
     facebook: "#",
