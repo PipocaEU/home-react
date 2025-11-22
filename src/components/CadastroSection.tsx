@@ -53,21 +53,24 @@ export default function CadastroSection({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (loading) return;
-    
+
     setLoading(true);
     try {
-      const res = await fetch("https://bawzlwhqnlhaxctghqlz.functions.supabase.co/capture-lead", {
-        method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nome: formData.nome,
-          email: formData.email,
-          situacao: formData.situacao,
-          carreira: formData.carreira,
-        }),
-      });
+      const res = await fetch(
+        "https://bawzlwhqnlhaxctghqlz.functions.supabase.co/capture-lead",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nome: formData.nome,
+            email: formData.email,
+            situacao: formData.situacao,
+            carreira: formData.carreira,
+          }),
+        }
+      );
 
       const data = await res.json();
 
@@ -77,11 +80,11 @@ export default function CadastroSection({
       } else {
         alert("Inscrição confirmada! Confira seu e-mail para a confirmação.");
         // Limpar o formulário
-        setFormData({ 
-          nome: "", 
-          email: "", 
-          situacao: "", 
-          carreira: "" 
+        setFormData({
+          nome: "",
+          email: "",
+          situacao: "",
+          carreira: "",
         });
       }
     } catch (err) {
@@ -99,12 +102,12 @@ export default function CadastroSection({
     >
       <div className="mx-auto max-w-[1216px] px-4 md:px-6 py-16 md:py-24">
         {/* === Imagens topo (3 cards) === */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           <figure className="h-[554px] w-full overflow-hidden rounded-[24px]">
             <img
               src={images.left}
               alt="Estudo em grupo"
-              className="h-full w-full object-cover"
+              className="object-cover w-full h-full"
               loading="lazy"
             />
           </figure>
@@ -112,7 +115,7 @@ export default function CadastroSection({
             <img
               src={images.center}
               alt="Pessoa estudando"
-              className="h-full w-full object-cover"
+              className="object-cover w-full h-full"
               loading="lazy"
             />
           </figure>
@@ -120,14 +123,17 @@ export default function CadastroSection({
             <img
               src={images.right}
               alt="Aula prática"
-              className="h-full w-full object-cover"
+              className="object-cover w-full h-full"
               loading="lazy"
             />
           </figure>
         </div>
 
         {/* === Conteúdo (texto + formulário) === */}
-        <div id="cadastro" className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12">
+        <div
+          id="cadastro"
+          className="grid grid-cols-1 gap-10 mt-12 lg:grid-cols-2 lg:gap-12"
+        >
           {/* Coluna esquerda: texto */}
           <div className="flex flex-col">
             {/* Pill */}
@@ -221,11 +227,13 @@ export default function CadastroSection({
                       Selecione sua situação
                     </option>
                     <option value="estudante">Estudante</option>
-                    <option value="buscando">Buscando 1º emprego</option>
-                    <option value="empregado">Empregado</option>
-                    <option value="desempregado">Desempregado</option>
-                    <option value="autonomo">Autônomo / Freelancer</option>
-                    <option value="outro">Outro</option>
+                    <option value="estagio">Estagiário(a)</option>
+                    <option value="buscando">Em busca de emprego</option>
+                    <option value="empregado">Empregado(a)</option>
+                    <option value="autonomo">Autônomo(a)</option>
+                    <option value="freelancer">Freelancer</option>
+                    <option value="empreenderdor">Empreendedor(a)</option>
+                    <option value="pausa">Em pausa na carreira</option>
                   </select>
                 </FormField>
 
@@ -278,8 +286,6 @@ export default function CadastroSection({
   );
 }
 
-
-
 /* ====== Subcomponentes ====== */
 function Bullet({ children }: { children: React.ReactNode }) {
   return (
@@ -321,7 +327,7 @@ function FormField({
       </label>
       <div className="relative">
         {icon && (
-          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2">
+          <span className="absolute -translate-y-1/2 pointer-events-none left-3 top-1/2">
             {icon}
           </span>
         )}
