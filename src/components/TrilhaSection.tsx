@@ -175,8 +175,8 @@ export default function TrilhaSection() {
   return (
     <section id="trilhas" className="bg-[#FBBB18] py-24 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="bg-white rounded-xl p-8 md:p-12 shadow-lg">
-          <div className="flex flex-col lg:flex-row gap-12">
+        <div className="p-8 bg-white shadow-lg rounded-xl md:p-12">
+          <div className="flex flex-col gap-12 lg:flex-row">
             {/* Coluna esquerda - Texto descritivo */}
             <div className="lg:w-2/5">
               <span className="inline-block bg-[#D9CCEA] text-[#431B61] text-sm font-semibold px-4 py-1 rounded-full mb-6">
@@ -310,10 +310,19 @@ export default function TrilhaSection() {
             </div>
 
             {/* Coluna direita - Acordeão de trilhas */}
-            <div className="lg:w-3/5 space-y-6">
+            <div className="space-y-6 lg:w-3/5">
               {trilhas.map((trilha) => (
                 <div
                   key={trilha.id}
+                  tabIndex={0}
+                  role="button"
+                  onClick={() => toggleTrilha(trilha.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      toggleTrilha(trilha.id);
+                    }
+                  }}
                   className={`border rounded-xl overflow-hidden transition-all duration-300 ${
                     trilha.expandido
                       ? "border-[#B69AD4] shadow-lg"
@@ -321,8 +330,8 @@ export default function TrilhaSection() {
                   }`}
                 >
                   <button
-                    className="w-full p-6 text-left flex justify-between items-center focus:outline-none"
-                    onClick={() => toggleTrilha(trilha.id)}
+                    tabIndex={-1}
+                    className="flex items-center justify-between w-full p-6 text-left"
                   >
                     <h3 className="text-xl font-medium text-[#2A1140]">
                       {trilha.titulo}
@@ -351,7 +360,7 @@ export default function TrilhaSection() {
                     <div className="px-6 pb-6">
                       <p className="text-[#495057] mb-6">{trilha.descricao}</p>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         {trilha.tecnologias.map((tech, index) => (
                           <div
                             key={index}
