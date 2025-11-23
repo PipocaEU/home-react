@@ -60,9 +60,11 @@ export default function MentoriaSection({
           {/* Coluna direita - Cards de benefícios */}
           <div className="lg:w-3/5">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            
-             {/* Card 1 - Suporte Profissionais Consagrados */}
-              <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
+              {/* Card 1 - Suporte Profissionais Consagrados */}
+              <div
+                tabIndex={0}
+                className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6"
+              >
                 <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">
                   {/* <svg
                     width="24"
@@ -85,13 +87,16 @@ export default function MentoriaSection({
                   Suporte de profissionais consagrados
                 </h3>
                 <p className="text-[#6C757D]">
-                  Receba feedbacks detalhados para elevar a
-                  qualidade do suas entregas.
+                  Receba feedbacks detalhados para elevar a qualidade do suas
+                  entregas.
                 </p>
               </div>
 
               {/* Card 2 - Plano de Carreira */}
-              <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
+              <div
+                tabIndex={0}
+                className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6"
+              >
                 <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">
                   {/* <svg
                     width="24"
@@ -119,9 +124,11 @@ export default function MentoriaSection({
                 </p>
               </div>
 
-             
               {/* Card 3 - Preparo para Entrevistas */}
-              <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
+              <div
+                tabIndex={0}
+                className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6"
+              >
                 <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">
                   {/* <svg
                     width="21"
@@ -152,7 +159,10 @@ export default function MentoriaSection({
               </div>
 
               {/* Card 4 - Networking */}
-              <div className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6">
+              <div
+                tabIndex={0}
+                className="bg-[#F3EFF7] border border-[#D9CCEA] rounded-xl p-6"
+              >
                 <div className="bg-[#431B61] w-12 h-12 rounded-lg flex items-center justify-center mb-6">
                   {/* <svg
                     width="30"
