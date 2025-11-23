@@ -79,7 +79,7 @@ function DesktopNav({ items }: DesktopNavProps) {
           <li key={it.href} className="h-14">
             <a
               href={it.href}
-              className="flex h-14 items-center px-6 text-[16px] leading-6 font-normal text-black hover:text-[#581B61] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61] rounded-md"
+              className="flex h-14 items-center px-6 text-[16px] leading-6 font-normal text-black hover:text-[#581B61] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b69ad4] rounded-md"
             >
               {it.label}
             </a>
@@ -100,7 +100,7 @@ function CTAButton({ text = "Cadastre-se grátis!" }: { text?: string }) {
     <a
       href="#cadastro"
       onClick={onClick}
-      className="hidden md:inline-flex h-11 items-center justify-center rounded-lg bg-[#FBBB18] px-6 text-[16px] font-semibold text-black hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61]"
+      className="hidden md:inline-flex h-11 items-center justify-center rounded-lg bg-[#FBBB18] px-6 text-[16px] font-semibold text-black hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b69ad4]"
       title="Ir para cadastro"
     >
       {text}
@@ -145,7 +145,6 @@ function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
     return () => document.removeEventListener("keydown", onKey);
   }, [isOpen, onClose]);
 
- 
   // Adicionar: Fechar menu ao clicar em qualquer link
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -178,7 +177,7 @@ function MobileMenu({ isOpen, onClose, items }: MobileMenuProps) {
               key={it.href}
               href={it.href}
               onClick={(e) => handleLinkClick(e, it.href)}
-              className="rounded-lg px-3 py-3 text-base text-slate-900 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61]"
+              className="rounded-lg px-3 py-3 text-base text-slate-900 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b69ad4]"
             >
               {it.label}
             </a>
@@ -247,7 +246,7 @@ export default function SiteHeader({
           <CTAButton text={ctaText} />
           <button
             type="button"
-            className="-mr-2 inline-flex items-center rounded-lg p-2 text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#581B61] md:hidden"
+            className="-mr-2 inline-flex items-center rounded-lg p-2 text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b69ad4] md:hidden"
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}

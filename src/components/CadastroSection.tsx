@@ -183,7 +183,7 @@ export default function CadastroSection({
                     value={formData.nome}
                     onChange={handleChange}
                     placeholder="Seu nome completo"
-                    className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 placeholder-[#ADAEBC] focus:outline-none focus:ring-2 focus:ring-[#581B61]"
+                    className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 placeholder-[#ADAEBC]"
                     required
                     disabled={loading}
                   />
@@ -202,7 +202,7 @@ export default function CadastroSection({
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="seuemail@dominio.com"
-                    className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 placeholder-[#ADAEBC] focus:outline-none focus:ring-2 focus:ring-[#581B61]"
+                    className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 placeholder-[#ADAEBC]"
                     required
                     disabled={loading}
                   />
@@ -219,7 +219,7 @@ export default function CadastroSection({
                     name="situacao"
                     value={formData.situacao}
                     onChange={handleChange}
-                    className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 text-[#000] placeholder-[#ADAEBC] focus:outline-none focus:ring-2 focus:ring-[#581B61]"
+                    className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 text-[#000] placeholder-[#ADAEBC]"
                     required
                     disabled={loading}
                   >
@@ -250,7 +250,7 @@ export default function CadastroSection({
                     value={formData.carreira}
                     onChange={handleChange}
                     placeholder="Ex: Desenvolvedor Full-Stack, Cientista de Dados"
-                    className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 placeholder-[#ADAEBC] focus:outline-none focus:ring-2 focus:ring-[#581B61]"
+                    className="h-[42px] w-full rounded-lg border border-[#DEE2E6] bg-white pl-10 pr-3 text-[16px] leading-6 placeholder-[#ADAEBC]"
                     required
                     disabled={loading}
                   />
@@ -260,7 +260,7 @@ export default function CadastroSection({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="mt-3 h-12 w-full rounded-lg bg-[#431B61] text-white shadow-[0px_2px_4px_rgba(0,0,0,0.10),0px_4px_6px_rgba(0,0,0,0.10)] transition-colors hover:bg-[#3a1653] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#581B61] font-bold text-[16px] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="mt-3 h-12 w-full rounded-lg bg-[#431B61] text-white shadow-[0px_2px_4px_rgba(0,0,0,0.10),0px_4px_6px_rgba(0,0,0,0.10)] transition-colors hover:bg-[#3a1653] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#b69ad4] font-bold text-[16px] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? "Enviando..." : "Enviar Cadastro"}
                 </button>
