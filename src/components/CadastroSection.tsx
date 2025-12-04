@@ -269,11 +269,21 @@ export default function CadastroSection({
               {/* Termos */}
               <p className="mt-6 text-center text-[12px] leading-4 text-[#ADB5BD]">
                 Ao se cadastrar, você concorda com nossos{" "}
-                <a href="#" className="text-[#431B61] hover:underline">
-                  Termos de Uso
+                <a
+                  href="/home-react/Termos_de_uso.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#431B61] hover:underline"
+                >
+                  Termos de Serviço
                 </a>{" "}
                 e{" "}
-                <a href="#" className="text-[#431B61] hover:underline">
+                <a
+                  href="/home-react/Politica_Privacidade.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#431B61] hover:underline"
+                >
                   Política de Privacidade
                 </a>
                 .
