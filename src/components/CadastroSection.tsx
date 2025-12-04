@@ -275,7 +275,7 @@ export default function CadastroSection({
                   rel="noopener noreferrer"
                   className="text-[#431B61] hover:underline"
                 >
-                  Termos de Serviço
+                  Termos de Uso
                 </a>{" "}
                 e{" "}
                 <a

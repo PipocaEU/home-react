@@ -146,7 +146,7 @@ export default function SiteFooter({
       target="_blank"
       rel="noopener noreferrer"
     >
-      Termos de Serviço
+      Termos de Uso
     </a>
     <a
       className="hover:underline underline-offset-4"
